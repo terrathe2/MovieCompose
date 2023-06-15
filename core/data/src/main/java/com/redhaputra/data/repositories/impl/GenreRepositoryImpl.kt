@@ -1,22 +1,21 @@
-package com.redhaputra.data
+package com.redhaputra.data.repositories.impl
 
+import com.redhaputra.data.repositories.GenreRepository
 import com.redhaputra.model.ListMovieGenreResponse
 import com.redhaputra.network.adapter.NetworkResponse
-import com.redhaputra.network.api.MovieService
+import com.redhaputra.network.api.GenreService
+import com.redhaputra.network.utils.NetworkConstants.CONNECTION_ERR
+import com.redhaputra.network.utils.NetworkConstants.SERVER_ERR
+import com.redhaputra.network.utils.NetworkConstants.UNKNOWN_ERR
 import java.io.IOException
+import javax.inject.Inject
 
 /**
- * Repository module that handle movie API network response.
+ * Repository module that handle genre API network response.
  */
-class MovieRepositoryImpl(
-    private val service: MovieService
-) : MovieRepository {
-
-    companion object {
-        private const val CONNECTION_ERR = "Connection Error"
-        private const val SERVER_ERR = "Server Error"
-        private const val UNKNOWN_ERR = "Unknown Error"
-    }
+class GenreRepositoryImpl @Inject constructor(
+    private val service: GenreService
+) : GenreRepository {
 
     override suspend fun getMovieGenres(): NetworkResponse<ListMovieGenreResponse> {
         try {

@@ -9,7 +9,7 @@ import com.squareup.moshi.JsonClass
  */
 @Keep
 @JsonClass(generateAdapter = true)
-data class ItemMovieGenreResponse(
+data class ItemMovieGenresResponse(
     @Json(name = "id")
     val id: Int?,
     @Json(name = "name")

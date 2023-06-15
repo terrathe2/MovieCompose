@@ -1,5 +1,6 @@
 package com.redhaputra.network.di
 
+import com.redhaputra.network.api.GenreService
 import com.redhaputra.network.api.MovieService
 import dagger.Module
 import dagger.Provides
@@ -33,4 +34,20 @@ object ApiModule {
         .client(client)
         .build()
         .create(MovieService::class.java)
+
+    /**
+     * Create a provider method binding for [GenreService].
+     *
+     * @return Instance of Genre service.
+     * @see Provides
+     */
+    @Singleton
+    @Provides
+    fun provideGenreService(
+        @Named("authClient") client: OkHttpClient,
+        retrofitBuilder: Retrofit.Builder
+    ): GenreService = retrofitBuilder
+        .client(client)
+        .build()
+        .create(GenreService::class.java)
 }

@@ -11,5 +11,5 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class ListMovieGenreResponse(
     @Json(name = "genres")
-    val genres: List<ItemMovieGenreResponse>?
+    val genres: List<ItemMovieGenresResponse>?
 )
