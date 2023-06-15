@@ -11,5 +11,5 @@ object BuildAndroidConfig {
     const val VECTOR_DRAWABLE = true
     const val TEST_INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
 
-    const val COMPOSE_VERSION = "1.4.6"
+    const val COMPOSE_VERSION = "1.4.5"
 }

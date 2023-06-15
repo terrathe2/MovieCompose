@@ -1,11 +1,13 @@
-import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin.Companion.isKaptVerbose
-
 import dependencies.Dependencies
+import dependencies.DebugDependencies
 import BuildModules.CORE
+import BuildModules.FEATURES
 
 plugins {
     id(BuildPlugins.ANDROID_APPLICATION)
     id(BuildPlugins.KOTLIN_ANDROID)
+    id(BuildPlugins.KOTLIN_KAPT)
+    id(BuildPlugins.HILT)
 }
 
 android {
@@ -24,9 +26,15 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            isMinifyEnabled = false
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+        }
+
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles("proguard-android-optimize.txt", "proguard-rules.pro")
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
         }
     }
 
@@ -41,6 +49,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
@@ -56,19 +65,26 @@ android {
 
 dependencies {
     implementation(project(CORE.DESIGN_SYSTEM))
+    implementation(project(CORE.NAVIGATION))
+    implementation(project(FEATURES.GENRES))
 
     implementation(platform(Dependencies.KOTLIN_BOM))
     implementation(platform(Dependencies.COMPOSE_BOM))
     implementation(Dependencies.CORE)
     implementation(Dependencies.KOTLIN)
-//    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation(Dependencies.ACT_COMPOSE)
 
+    implementation(Dependencies.ACT_COMPOSE)
     implementation(Dependencies.COMPOSE_UI)
     implementation(Dependencies.COMPOSE_GRAPHICS)
     implementation(Dependencies.COMPOSE_TOOLING_PREVIEW)
     implementation(Dependencies.COMPOSE_MATERIAL)
+    implementation(Dependencies.COMPOSE_RUNTIME)
 
-    debugImplementation(Dependencies.COMPOSE_TOOLING)
-    debugImplementation(Dependencies.COMPOSE_TEST_MANIFEST)
+    // HILT
+    implementation(Dependencies.HILT)
+    kapt(Dependencies.HILT_COMPILER)
+
+    debugImplementation(DebugDependencies.STETHO)
+    debugImplementation(DebugDependencies.COMPOSE_TOOLING)
+    debugImplementation(DebugDependencies.COMPOSE_TEST_MANIFEST)
 }
