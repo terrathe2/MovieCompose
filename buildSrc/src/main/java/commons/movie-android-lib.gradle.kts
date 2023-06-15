@@ -18,6 +18,19 @@ android {
         testInstrumentationRunner = BuildAndroidConfig.TEST_INSTRUMENTATION_RUNNER
     }
 
+    buildTypes {
+        getByName("debug") {
+            isMinifyEnabled = false
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+        }
+
+        getByName("release") {
+            isMinifyEnabled = false
+            proguardFiles("proguard-android-optimize.txt", "proguard-rules.pro")
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -29,6 +42,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
