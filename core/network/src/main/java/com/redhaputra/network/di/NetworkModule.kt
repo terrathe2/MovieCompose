@@ -1,6 +1,7 @@
 package com.redhaputra.network.di
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.redhaputra.model.BuildConfig
 import com.redhaputra.network.interceptor.AuthorizationInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

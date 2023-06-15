@@ -3,7 +3,9 @@ include(
     ":core:data",
     ":core:designsystem",
     ":core:model",
+    ":core:navigation",
     ":core:network",
+    "features:genres"
 )
 
 rootProject.buildFileName = "build.gradle.kts"

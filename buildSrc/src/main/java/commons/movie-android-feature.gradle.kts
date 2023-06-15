@@ -1,27 +1,22 @@
-import dependencies.Dependencies
-import dependencies.DebugDependencies
+package commons
+
 import BuildModules.CORE
-import BuildModules.FEATURES
+import dependencies.Dependencies
+import org.gradle.kotlin.dsl.project
 
 plugins {
-    id(BuildPlugins.ANDROID_APPLICATION)
-    id(BuildPlugins.KOTLIN_ANDROID)
-    id(BuildPlugins.KOTLIN_KAPT)
-    id(BuildPlugins.HILT)
+    id("com.android.library")
+    id("kotlin-android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
-    namespace = BuildAndroidConfig.APPLICATION_ID
     compileSdk = BuildAndroidConfig.COMPILE_SDK_VERSION
 
     defaultConfig {
-        applicationId = BuildAndroidConfig.APPLICATION_ID
         minSdk = BuildAndroidConfig.MIN_SDK_VERSION
-        targetSdk = BuildAndroidConfig.TARGET_SDK_VERSION
-        versionCode = BuildAndroidConfig.VERSION_CODE
-        versionName = BuildAndroidConfig.VERSION_NAME
 
-        vectorDrawables.useSupportLibrary = BuildAndroidConfig.VECTOR_DRAWABLE
         testInstrumentationRunner = BuildAndroidConfig.TEST_INSTRUMENTATION_RUNNER
     }
 
@@ -55,22 +50,15 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = BuildAndroidConfig.COMPOSE_VERSION
     }
-
-    packaging {
-        resources {
-            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
-        }
-    }
 }
 
 dependencies {
+    implementation(project(CORE.DATA))
     implementation(project(CORE.DESIGN_SYSTEM))
-    implementation(project(CORE.NAVIGATION))
-    implementation(project(FEATURES.GENRES))
+    api(project(CORE.NAVIGATION))
 
     implementation(platform(Dependencies.KOTLIN_BOM))
     implementation(platform(Dependencies.COMPOSE_BOM))
-    implementation(Dependencies.CORE)
     implementation(Dependencies.KOTLIN)
 
     implementation(Dependencies.ACT_COMPOSE)
@@ -80,11 +68,7 @@ dependencies {
     implementation(Dependencies.COMPOSE_MATERIAL)
     implementation(Dependencies.COMPOSE_RUNTIME)
 
-    // HILT
+
     implementation(Dependencies.HILT)
     kapt(Dependencies.HILT_COMPILER)
-
-    debugImplementation(DebugDependencies.STETHO)
-    debugImplementation(DebugDependencies.COMPOSE_TOOLING)
-    debugImplementation(DebugDependencies.COMPOSE_TEST_MANIFEST)
 }

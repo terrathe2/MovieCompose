@@ -13,7 +13,7 @@ android {
 dependencies {
     implementation(project(CORE.MODEL))
 
-    implementation(Dependencies.RETROFIT)
+    api(Dependencies.RETROFIT)
     implementation(Dependencies.RETROFIT_CONVERTER)
     implementation(Dependencies.MOSHI)
     implementation(Dependencies.HILT)

@@ -54,4 +54,6 @@ dependencies {
     implementation(platform(Dependencies.KOTLIN_BOM))
     implementation(platform(Dependencies.COMPOSE_BOM))
     implementation(Dependencies.KOTLIN)
+
+    implementation(Dependencies.COMPOSE_RUNTIME)
 }
