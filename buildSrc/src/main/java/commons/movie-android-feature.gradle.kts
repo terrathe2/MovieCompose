@@ -55,6 +55,9 @@ android {
 dependencies {
     implementation(project(CORE.DATA))
     implementation(project(CORE.DESIGN_SYSTEM))
+    implementation(project(CORE.NETWORK))
+    implementation(project(CORE.MODEL))
+    implementation(project(CORE.UI))
     api(project(CORE.NAVIGATION))
 
     implementation(platform(Dependencies.KOTLIN_BOM))
@@ -67,7 +70,8 @@ dependencies {
     implementation(Dependencies.COMPOSE_TOOLING_PREVIEW)
     implementation(Dependencies.COMPOSE_MATERIAL)
     implementation(Dependencies.COMPOSE_RUNTIME)
-
+    implementation(Dependencies.CONSTRAINT_LAYOUT)
+    implementation(Dependencies.LIFECYCLE_RUNTIME)
 
     implementation(Dependencies.HILT)
     kapt(Dependencies.HILT_COMPILER)

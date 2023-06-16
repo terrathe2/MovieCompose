@@ -1,4 +1,4 @@
-package com.redhaputra.designsystem
+package com.redhaputra.designsystem.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.lightColors

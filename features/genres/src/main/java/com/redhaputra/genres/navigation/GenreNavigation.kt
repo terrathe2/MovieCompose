@@ -20,11 +20,13 @@ object GenreDestination : MCNavigationDestination {
  */
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.genreGraph(
-    showSnackBar: (String, String?, SnackbarDuration, (() -> Unit)?) -> Unit
+    showSnackBar: (String, String?, SnackbarDuration, (() -> Unit)?) -> Unit,
+    navigateToMovieList: (String) -> Unit,
 ) {
     composable(route = GenreDestination.route) {
         GenreRoute(
-            showSnackBar = showSnackBar
+            showSnackBar = showSnackBar,
+            navigateToMovieList = navigateToMovieList
         )
     }
 }

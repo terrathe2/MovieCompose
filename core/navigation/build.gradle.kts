@@ -10,5 +10,6 @@ android {
 
 dependencies {
     api(Dependencies.NAVIGATION)
+    api(Dependencies.HILT_NAVIGATION)
     implementation(Dependencies.COMPOSE_MATERIAL)
 }

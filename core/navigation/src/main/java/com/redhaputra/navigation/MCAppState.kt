@@ -88,7 +88,7 @@ class MCAppState(
             snackBarJob = launch {
                 val snackBarResult = scaffoldState.snackbarHostState.showSnackbar(
                     message = message,
-                    actionLabel = actionLabel,
+                    actionLabel = actionLabel ?: "X",
                     duration = duration
                 )
                 when (snackBarResult) {

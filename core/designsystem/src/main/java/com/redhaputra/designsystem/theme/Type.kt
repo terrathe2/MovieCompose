@@ -1,4 +1,4 @@
-package com.redhaputra.designsystem
+package com.redhaputra.designsystem.theme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.redhaputra.designsystem.R
 
 /**
  * https://fonts.google.com/specimen/Poppins

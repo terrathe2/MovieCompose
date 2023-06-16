@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="empty_movie_genre">No Movie Genre to show</string>
+    <string name="movie_genre">Movie Genre</string>
+</resources>

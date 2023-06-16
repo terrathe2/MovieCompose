@@ -1,4 +1,4 @@
-package com.redhaputra.data.module
+package com.redhaputra.data.di
 
 import com.redhaputra.data.repositories.GenreRepository
 import com.redhaputra.data.repositories.MovieRepository
