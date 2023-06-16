@@ -31,7 +31,8 @@ fun MCNavHost(
         modifier = modifier
     ) {
         genreGraph(
-            showSnackBar = appState::showSnackBar
+            showSnackBar = appState::showSnackBar,
+            navigateToMovieList = {}
         )
     }
 }

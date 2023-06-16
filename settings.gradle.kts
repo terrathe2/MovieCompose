@@ -2,6 +2,7 @@ include(
     ":app",
     ":core:data",
     ":core:designsystem",
+    ":core:ui",
     ":core:model",
     ":core:navigation",
     ":core:network",

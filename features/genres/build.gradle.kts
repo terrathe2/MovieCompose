@@ -1,3 +1,5 @@
+import dependencies.Dependencies
+
 plugins {
     id("commons.movie-android-feature")
 }
@@ -7,4 +9,5 @@ android {
 }
 
 dependencies {
+    implementation(Dependencies.FLOW_LAYOUT)
 }

@@ -1,4 +1,4 @@
-package com.redhaputra.designsystem
+package com.redhaputra.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 

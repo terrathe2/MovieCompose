@@ -7,7 +7,7 @@ import androidx.compose.material.SnackbarHost
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.redhaputra.designsystem.MCTheme
+import com.redhaputra.designsystem.theme.MCTheme
 import com.redhaputra.moviecompose.navigation.MCNavHost
 import com.redhaputra.navigation.MCAppState
 import com.redhaputra.navigation.rememberMCAppState

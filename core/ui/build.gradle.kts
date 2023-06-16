@@ -1,3 +1,4 @@
+import BuildModules.CORE
 import dependencies.Dependencies
 
 plugins {
@@ -5,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.redhaputra.designsystem"
+    namespace = "com.redhaputra.ui"
 }
 
 dependencies {
-    implementation(Dependencies.COMPOSE_UI)
+    implementation(project(CORE.DESIGN_SYSTEM))
+    implementation(Dependencies.ACT_COMPOSE)
     implementation(Dependencies.COMPOSE_MATERIAL)
-    implementation(Dependencies.CONSTRAINT_LAYOUT)
 }

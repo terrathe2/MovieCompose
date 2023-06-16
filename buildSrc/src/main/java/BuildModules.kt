@@ -5,6 +5,7 @@ object BuildModules {
         const val MODEL = ":core:model"
         const val NAVIGATION = ":core:navigation"
         const val NETWORK = ":core:network"
+        const val UI = ":core:ui"
     }
 
     object FEATURES {
