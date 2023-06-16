@@ -7,11 +7,6 @@ import com.redhaputra.model.ItemMovieGenresResponse
  */
 sealed interface MovieGenreListState {
     /**
-     * The movie genres process is still loading.
-     */
-    object Loading : MovieGenreListState
-
-    /**
      * The movie genres data is empty.
      */
     object Empty : MovieGenreListState

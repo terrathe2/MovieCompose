@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -29,8 +30,11 @@ class GenreViewModel @Inject constructor(
     // set default state of genre to empty
     private var loadedGenresLastState: MovieGenreListState = MovieGenreListState.Empty
 
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+
     private val genresUiState =
-        MutableStateFlow<MovieGenreListState>(MovieGenreListState.Loading)
+        MutableStateFlow<MovieGenreListState>(MovieGenreListState.Empty)
     private val errorState = MutableStateFlow<String?>(null)
 
     val movieGenresUiState: StateFlow<MovieGenresUIState> =
@@ -43,7 +47,7 @@ class GenreViewModel @Inject constructor(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = MovieGenresUIState(
-                genresState = MovieGenreListState.Loading,
+                genresState = MovieGenreListState.Empty,
                 errorState = null
             )
         )
@@ -52,7 +56,14 @@ class GenreViewModel @Inject constructor(
         getGenres()
     }
 
-    private fun getGenres() {
+    /**
+     * Handle get genres response from API
+     */
+    fun getGenres() {
+        if (!_isLoading.value) {
+            _isLoading.value = true
+        }
+
         viewModelScope.launch(dispatcher.io) {
             val response = repository.getMovieGenres()
             withContext(dispatcher.main) {
@@ -76,6 +87,7 @@ class GenreViewModel @Inject constructor(
                 // change UI state value based on the last stated saved.
                 // so when error happen after list loaded, loaded list still showing
                 genresUiState.value = loadedGenresLastState
+                _isLoading.emit(false)
             }
         }
     }

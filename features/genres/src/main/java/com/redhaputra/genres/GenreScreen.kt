@@ -36,6 +36,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.redhaputra.data.utils.IntUtils.CARD_ELEVATION
 import com.redhaputra.data.utils.IntUtils.COMMON_RADIUS
+import com.redhaputra.designsystem.component.MCLoadingSurface
 import com.redhaputra.designsystem.R as RD
 import com.redhaputra.designsystem.component.MCTopBar
 import com.redhaputra.designsystem.theme.MCIcons
@@ -44,6 +45,7 @@ import com.redhaputra.genres.state.MovieGenreListState
 import com.redhaputra.genres.state.MovieGenresUIState
 import com.redhaputra.model.ItemMovieGenresResponse
 import com.redhaputra.ui.MCEmptyState
+import com.redhaputra.ui.MCPullToRefresh
 
 /**
  * Composable method to handle GenreRoute
@@ -55,6 +57,7 @@ fun GenreRoute(
     navigateToMovieList: (String) -> Unit,
 ) {
     val movieGenresUIState by viewModel.movieGenresUiState.collectAsStateWithLifecycle()
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
 
     HandleErrorState(
         errorMsg = movieGenresUIState.errorState,
@@ -62,10 +65,13 @@ fun GenreRoute(
         showSnackBar = showSnackBar
     )
 
-    GenreScreen(
-        movieGenresUIState = movieGenresUIState,
-        navigateToMovieList = navigateToMovieList
-    )
+    MCLoadingSurface(loading = isLoading) {
+        GenreScreen(
+            movieGenresUIState = movieGenresUIState,
+            getGenres = viewModel::getGenres,
+            navigateToMovieList = navigateToMovieList
+        )
+    }
 }
 
 @Composable
@@ -86,17 +92,18 @@ private fun HandleErrorState(
 @Composable
 private fun GenreScreen(
     movieGenresUIState: MovieGenresUIState,
+    getGenres: () -> Unit,
     navigateToMovieList: (String) -> Unit
 ) {
     Scaffold(
-        topBar = {
-            MCTopBar(screenTitle = stringResource(id = RD.string.movie_genre))
-        }
+       topBar = { MCTopBar(screenTitle = stringResource(id = RD.string.movie_genre)) },
     ) {
-        ListMovieGenres(
-            movieGenresUIState = movieGenresUIState,
-            navigateToMovieList =  navigateToMovieList
-        )
+        MCPullToRefresh(onRefresh = getGenres) {
+            ListMovieGenres(
+                movieGenresUIState = movieGenresUIState,
+                navigateToMovieList =  navigateToMovieList
+            )
+        }
     }
 }
 
@@ -114,12 +121,19 @@ fun ListMovieGenres(
             .fillMaxWidth()
             .wrapContentHeight(align = Alignment.Top)
             .verticalScroll(rememberScrollState())
-            .padding(16.dp)
+            .padding(horizontal = 16.dp, vertical = 10.dp)
             .background(color = MCTheme.primaryColors.neutral100),
         horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.Start),
         verticalAlignment = Alignment.Top,
     ) {
         when (movieGenresUIState.genresState) {
+            is MovieGenreListState.Empty -> {
+                MCEmptyState(
+                    modifier = Modifier.padding(vertical = 35.dp),
+                    description = stringResource(id = RD.string.empty_movie_genre)
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+            }
             is MovieGenreListState.Success -> {
                 val listGenre = movieGenresUIState.genresState.genres
                 listGenre.forEachIndexed { index, item ->
@@ -133,13 +147,6 @@ fun ListMovieGenres(
                         Spacer(modifier = Modifier.height(4.dp))
                     }
                 }
-            }
-            else -> {
-                MCEmptyState(
-                    modifier = Modifier.padding(vertical = 35.dp),
-                    description = stringResource(id = RD.string.empty_movie_genre)
-                )
-                Spacer(modifier = Modifier.height(4.dp))
             }
         }
     }
@@ -158,7 +165,9 @@ private fun ListMovieGenreItem(
         onClick = navigateToMovieList
     ) {
         Row(
-            modifier = Modifier.wrapContentWidth().padding(8.dp),
+            modifier = Modifier
+                .wrapContentWidth()
+                .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
@@ -170,7 +179,9 @@ private fun ListMovieGenreItem(
                 style = MCTheme.typography.textMediumM
             )
             Icon(
-                modifier = Modifier.padding(start = 8.dp).size(16.dp),
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .size(16.dp),
                 painter = painterResource(id = MCIcons.icArrowRightIos),
                 tint = MCTheme.primaryColors.primary700,
                 contentDescription = null
@@ -188,6 +199,7 @@ fun GreetingPreview() {
                 MovieGenreListState.Empty,
                 ""
             ),
+            {},
             {}
         )
     }
