@@ -5,7 +5,9 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.redhaputra.designsystem.component.MCDefaultTopBarContent
+import com.redhaputra.ui.MCPagingErrorHandler
 
 /**
  * Composable method to handle ListMovieRoute
@@ -17,11 +19,14 @@ fun ListMovieRoute(
     onBackClick: () -> Unit,
     navigateToMovieDetail: (String) -> Unit,
 ) {
+    val movieList = viewModel.movieList.collectAsLazyPagingItems()
+
     ListMovieScreen(
         genre = viewModel.genre,
         onBackClick = onBackClick,
         navigateToMovieDetail = navigateToMovieDetail
     )
+    MCPagingErrorHandler(loadState = movieList.loadState, showSnackBar = showSnackBar)
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")

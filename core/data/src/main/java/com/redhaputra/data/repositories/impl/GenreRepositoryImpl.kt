@@ -1,11 +1,9 @@
 package com.redhaputra.data.repositories.impl
 
 import com.redhaputra.data.repositories.GenreRepository
-import com.redhaputra.model.ListMovieGenreResponse
+import com.redhaputra.model.response.ListMovieGenreResponse
 import com.redhaputra.network.adapter.NetworkResponse
 import com.redhaputra.network.api.GenreService
-import com.redhaputra.network.utils.NetworkConstants.CONNECTION_ERR
-import com.redhaputra.network.utils.NetworkConstants.SERVER_ERR
 import com.redhaputra.network.utils.NetworkConstants.UNKNOWN_ERR
 import java.io.IOException
 import javax.inject.Inject
@@ -28,10 +26,10 @@ class GenreRepositoryImpl @Inject constructor(
             throw Exception(UNKNOWN_ERR)
         } catch (e: Exception) {
             if (e is IOException) {
-                return NetworkResponse.Error(CONNECTION_ERR)
+                return NetworkResponse.Error
             }
 
-            return NetworkResponse.Error(SERVER_ERR)
+            return NetworkResponse.Error
         }
     }
 }

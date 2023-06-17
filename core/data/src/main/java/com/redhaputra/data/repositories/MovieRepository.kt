@@ -1,6 +1,6 @@
 package com.redhaputra.data.repositories
 
-import com.redhaputra.model.ListMovieReviewResponse
+import com.redhaputra.model.response.ListMovieReviewResponse
 import com.redhaputra.network.adapter.NetworkResponse
 
 /**

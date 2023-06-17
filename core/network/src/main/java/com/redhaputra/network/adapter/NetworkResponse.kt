@@ -14,11 +14,5 @@ sealed class NetworkResponse<out T : Any> {
     /**
      * Handle resource error
      */
-    class Error(val message: String) : NetworkResponse<Nothing>()
-
-    override fun toString(): String =
-        when (this) {
-            is Success<*> -> "Success[data=$data]"
-            is Error -> "Error $message"
-        }
+    object Error : NetworkResponse<Nothing>()
 }

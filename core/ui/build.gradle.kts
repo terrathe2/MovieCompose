@@ -13,4 +13,5 @@ dependencies {
     implementation(project(CORE.DESIGN_SYSTEM))
     implementation(Dependencies.ACT_COMPOSE)
     implementation(Dependencies.COMPOSE_MATERIAL)
+    implementation(Dependencies.PAGING)
 }

@@ -1,6 +1,6 @@
 package com.redhaputra.network.api
 
-import com.redhaputra.model.ListMovieReviewResponse
+import com.redhaputra.model.response.ListMovieReviewResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

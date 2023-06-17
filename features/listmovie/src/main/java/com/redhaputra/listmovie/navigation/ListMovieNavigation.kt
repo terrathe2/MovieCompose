@@ -9,7 +9,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.composable
-import com.redhaputra.data.utils.IntUtils.NAV_ANIM_DURATION
+import com.redhaputra.ui.utils.IntUtils.NAV_ANIM_DURATION
 import com.redhaputra.listmovie.ListMovieRoute
 import com.redhaputra.navigation.MCNavigationDestination
 
