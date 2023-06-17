@@ -6,4 +6,5 @@ package com.redhaputra.data.utils
 object IntUtils {
     const val COMMON_RADIUS = 8
     const val CARD_ELEVATION = 5
+    const val NAV_ANIM_DURATION = 300
 }

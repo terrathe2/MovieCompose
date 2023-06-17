@@ -27,6 +27,7 @@ object Dependencies {
     const val MOSHI = "com.squareup.moshi:moshi-kotlin:${DependenciesVersions.MOSHI}"
     const val NAVIGATION =
         "com.google.accompanist:accompanist-navigation-animation:${DependenciesVersions.ACCOMPANIST}"
+    const val PAGING = "androidx.paging:paging-compose:${DependenciesVersions.PAGING}"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${DependenciesVersions.RETROFIT}"
     const val RETROFIT_CONVERTER =
         "com.squareup.retrofit2:converter-moshi:${DependenciesVersions.RETROFIT}"

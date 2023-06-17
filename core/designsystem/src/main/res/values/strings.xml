@@ -3,4 +3,5 @@
     <string name="empty_movie_genre">No Movie Genre to show</string>
     <string name="loading">Loading…</string>
     <string name="movie_genre">Movie Genre</string>
+    <string name="movie">Movie</string>
 </resources>

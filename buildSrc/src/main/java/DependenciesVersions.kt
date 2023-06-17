@@ -10,6 +10,7 @@ object DependenciesVersions {
     const val KOTLIN_BOM = "1.8.10"
     const val LIFECYCLE = "2.6.1"
     const val MOSHI = "1.14.0"
+    const val PAGING = "3.2.0-beta01"
     const val RETROFIT = "2.9.0"
     const val STETHO = "1.6.0"
 }

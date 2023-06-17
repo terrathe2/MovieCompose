@@ -6,6 +6,8 @@ import androidx.compose.ui.Modifier
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.redhaputra.genres.navigation.GenreDestination
 import com.redhaputra.genres.navigation.genreGraph
+import com.redhaputra.listmovie.navigation.ListMovieDestination
+import com.redhaputra.listmovie.navigation.listMovieGraph
 import com.redhaputra.navigation.MCAppState
 
 /**
@@ -32,7 +34,17 @@ fun MCNavHost(
     ) {
         genreGraph(
             showSnackBar = appState::showSnackBar,
-            navigateToMovieList = {}
+            navigateToMovieList = {
+                appState.navigate(
+                    ListMovieDestination,
+                    ListMovieDestination.createNavigationRoute(it)
+                )
+            }
+        )
+        listMovieGraph(
+            showSnackBar = appState::showSnackBar,
+            onBackClick = appState::onBackClick,
+            navigateToMovieDetail = {}
         )
     }
 }
