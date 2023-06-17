@@ -10,5 +10,6 @@ object BuildModules {
 
     object FEATURES {
         const val GENRES = ":features:genres"
+        const val LIST_MOVIE = ":features:listmovie"
     }
 }

@@ -6,7 +6,8 @@ include(
     ":core:model",
     ":core:navigation",
     ":core:network",
-    "features:genres"
+    ":features:genres",
+    ":features:listmovie"
 )
 
 rootProject.buildFileName = "build.gradle.kts"

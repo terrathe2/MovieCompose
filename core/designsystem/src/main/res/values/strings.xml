@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="click_to_retry">Click to retry</string>
+    <string name="downloading">downloading…</string>
+    <string name="empty_movie">No Movie to show</string>
     <string name="empty_movie_genre">No Movie Genre to show</string>
     <string name="loading">Loading…</string>
     <string name="movie_genre">Movie Genre</string>
+    <string name="movie">Movie</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.redhaputra.network.di
 
+import com.redhaputra.network.api.DiscoverService
 import com.redhaputra.network.api.GenreService
 import com.redhaputra.network.api.MovieService
 import dagger.Module
@@ -50,4 +51,20 @@ object ApiModule {
         .client(client)
         .build()
         .create(GenreService::class.java)
+
+    /**
+     * Create a provider method binding for [DiscoverService].
+     *
+     * @return Instance of Discover service.
+     * @see Provides
+     */
+    @Singleton
+    @Provides
+    fun provideDiscoverService(
+        @Named("authClient") client: OkHttpClient,
+        retrofitBuilder: Retrofit.Builder
+    ): DiscoverService = retrofitBuilder
+        .client(client)
+        .build()
+        .create(DiscoverService::class.java)
 }

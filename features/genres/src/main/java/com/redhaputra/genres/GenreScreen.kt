@@ -34,8 +34,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.redhaputra.data.utils.IntUtils.CARD_ELEVATION
-import com.redhaputra.data.utils.IntUtils.COMMON_RADIUS
+import com.redhaputra.ui.utils.IntUtils.CARD_ELEVATION
+import com.redhaputra.ui.utils.IntUtils.COMMON_RADIUS
 import com.redhaputra.designsystem.component.MCLoadingSurface
 import com.redhaputra.designsystem.R as RD
 import com.redhaputra.designsystem.component.MCTopBar
@@ -43,8 +43,8 @@ import com.redhaputra.designsystem.theme.MCIcons
 import com.redhaputra.designsystem.theme.MCTheme
 import com.redhaputra.genres.state.MovieGenreListState
 import com.redhaputra.genres.state.MovieGenresUIState
-import com.redhaputra.model.ItemMovieGenresResponse
-import com.redhaputra.ui.MCEmptyState
+import com.redhaputra.model.response.ItemMovieGenresResponse
+import com.redhaputra.ui.MCEmptyUIState
 import com.redhaputra.ui.MCPullToRefresh
 
 /**
@@ -128,7 +128,7 @@ fun ListMovieGenres(
     ) {
         when (movieGenresUIState.genresState) {
             is MovieGenreListState.Empty -> {
-                MCEmptyState(
+                MCEmptyUIState(
                     modifier = Modifier.padding(vertical = 35.dp),
                     description = stringResource(id = RD.string.empty_movie_genre)
                 )
@@ -139,7 +139,7 @@ fun ListMovieGenres(
                 listGenre.forEachIndexed { index, item ->
                     ListMovieGenreItem(
                         item = item,
-                        navigateToMovieList = { item.name?.let { navigateToMovieList(it) } }
+                        navigateToMovieList = navigateToMovieList
                     )
 
                     // bottom margin
@@ -156,13 +156,13 @@ fun ListMovieGenres(
 @Composable
 private fun ListMovieGenreItem(
     item: ItemMovieGenresResponse,
-    navigateToMovieList: () -> Unit
+    navigateToMovieList: (String) -> Unit
 ) {
     Card(
         modifier = Modifier.wrapContentWidth(),
         shape = RoundedCornerShape(COMMON_RADIUS.dp),
         elevation = CARD_ELEVATION.dp,
-        onClick = navigateToMovieList
+        onClick = { item.name?.let { navigateToMovieList(it) } }
     ) {
         Row(
             modifier = Modifier

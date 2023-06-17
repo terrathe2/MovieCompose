@@ -1,6 +1,6 @@
 package com.redhaputra.genres.state
 
-import com.redhaputra.model.ItemMovieGenresResponse
+import com.redhaputra.model.response.ItemMovieGenresResponse
 
 /**
  * A sealed hierarchy describing the state of the movie genres process.

@@ -23,10 +23,10 @@ private const val DEFAULT_IMG_WIDTH = 100
 private const val DEFAULT_IMG_HEIGHT = 100
 
 /**
- * Movie compose empty state reusable component
+ * Movie compose empty ui state reusable component
  */
 @Composable
-fun MCEmptyState(
+fun MCEmptyUIState(
     modifier: Modifier = Modifier,
     imgPainter: Painter = painterResource(MCIcons.icEmptyList),
     imgWidth: Dp = DEFAULT_IMG_WIDTH.dp,
