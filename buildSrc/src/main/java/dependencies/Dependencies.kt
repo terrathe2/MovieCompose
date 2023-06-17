@@ -5,6 +5,7 @@ import DependenciesVersions
 object Dependencies {
     const val ACT_COMPOSE = "androidx.activity:activity-compose:${DependenciesVersions.ACT_COMPOSE}"
     const val ANOTATION = "androidx.annotation:annotation:${DependenciesVersions.ANNOTATION}"
+    const val COIL = "io.coil-kt:coil-compose:${DependenciesVersions.COIL}"
     const val COMPOSE_BOM = "androidx.compose:compose-bom:${DependenciesVersions.COMPOSE_BOM}"
     const val COMPOSE_GRAPHICS = "androidx.compose.ui:ui-graphics"
     const val COMPOSE_MATERIAL = "androidx.compose.material:material"

@@ -12,4 +12,5 @@ dependencies {
     implementation(Dependencies.COMPOSE_UI)
     implementation(Dependencies.COMPOSE_MATERIAL)
     implementation(Dependencies.CONSTRAINT_LAYOUT)
+    implementation(Dependencies.COIL)
 }

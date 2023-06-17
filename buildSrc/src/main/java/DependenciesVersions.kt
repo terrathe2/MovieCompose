@@ -2,6 +2,7 @@ object DependenciesVersions {
     const val ACCOMPANIST = "0.30.1"
     const val ACT_COMPOSE = "1.7.2"
     const val ANNOTATION = "1.6.0"
+    const val COIL = "2.4.0"
     const val COMPOSE_BOM = "2023.05.01"
     const val CONSTRAINT_LAYOUT = "1.0.1"
     const val CORE = "1.10.1"

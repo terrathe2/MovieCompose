@@ -2,6 +2,9 @@ package com.redhaputra.model.data
 
 import androidx.annotation.Keep
 
+/**
+ * Movie data model
+ */
 @Keep
 data class MovieData(
     val coverImg: String,
