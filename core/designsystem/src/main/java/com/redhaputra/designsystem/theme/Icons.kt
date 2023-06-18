@@ -11,4 +11,5 @@ object MCIcons {
     val icCached = R.drawable.ic_cached_24
     val icEmptyImg = R.drawable.empty_image
     val icEmptyList = R.drawable.empty_list
+    val icRating = R.drawable.ic_rating_24
 }

@@ -1,5 +1,6 @@
 package com.redhaputra.data.repositories
 
+import com.redhaputra.model.body.MovieReviewsBody
 import com.redhaputra.model.response.ListMovieReviewResponse
 import com.redhaputra.model.response.ListMovieTrailerResponse
 import com.redhaputra.network.adapter.NetworkResponse
@@ -15,5 +16,5 @@ interface MovieRepository {
     /**
      * Get Movie Review list
      */
-    suspend fun getMovieReviews(movieId: Int): NetworkResponse<ListMovieReviewResponse>
+    suspend fun getMovieReviews(params: MovieReviewsBody): NetworkResponse<ListMovieReviewResponse>
 }
