@@ -10,12 +10,12 @@ import com.squareup.moshi.JsonClass
 @Keep
 @JsonClass(generateAdapter = true)
 data class AuthorDetail(
-    @Json(name = "name")
-    val name: String?,
-    @Json(name = "username")
-    val username: String?,
     @Json(name = "avatar_path")
     val avatar: String?,
+    @Json(name = "name")
+    val name: String?,
     @Json(name = "rating")
     val rating: Int?,
+    @Json(name = "username")
+    val username: String?,
 )

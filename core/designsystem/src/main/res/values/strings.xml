@@ -8,4 +8,9 @@
     <string name="movie_genre">Movie Genre</string>
     <string name="movie">Movie</string>
     <string name="movie_detail">Movie Detail</string>
+    <string name="rating">Rating</string>
+    <plurals name="review">
+        <item quantity="one">Review</item>
+        <item quantity="other">Reviews</item>
+    </plurals>
 </resources>

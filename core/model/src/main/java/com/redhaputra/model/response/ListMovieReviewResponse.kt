@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
- * Review List Response data model
+ * Movie Review List Response data model
  */
 @Keep
 @JsonClass(generateAdapter = true)

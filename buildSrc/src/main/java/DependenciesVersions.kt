@@ -14,4 +14,5 @@ object DependenciesVersions {
     const val PAGING = "3.2.0-beta01"
     const val RETROFIT = "2.9.0"
     const val STETHO = "1.6.0"
+    const val YOUTUBE_PLAYER = "12.0.0"
 }

@@ -29,8 +29,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ListMovieViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
+    dispatcher: CommonDispatcherRepository,
     private val repository: DiscoverRepository,
-    private val dispatcher: CommonDispatcherRepository
 ) : ViewModel() {
     private val genreId: String = checkNotNull(savedStateHandle[genreIdArg])
     val genreName: String = checkNotNull(savedStateHandle[genreNameArg])

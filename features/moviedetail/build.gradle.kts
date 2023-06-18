@@ -10,4 +10,5 @@ android {
 
 dependencies {
     implementation(Dependencies.PAGING)
+    implementation(Dependencies.YOUTUBE_PLAYER)
 }
