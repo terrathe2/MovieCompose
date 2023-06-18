@@ -32,4 +32,6 @@ object Dependencies {
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${DependenciesVersions.RETROFIT}"
     const val RETROFIT_CONVERTER =
         "com.squareup.retrofit2:converter-moshi:${DependenciesVersions.RETROFIT}"
+    const val YOUTUBE_PLAYER =
+        "com.pierfrancescosoffritti.androidyoutubeplayer:core:${DependenciesVersions.YOUTUBE_PLAYER}"
 }

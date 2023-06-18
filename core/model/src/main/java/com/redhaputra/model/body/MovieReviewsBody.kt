@@ -3,10 +3,10 @@ package com.redhaputra.model.body
 import androidx.annotation.Keep
 
 /**
- * Movie list body data model
+ * Movie review list body data model
  */
 @Keep
-data class MovieListBody(
-    val genreId: String,
+data class MovieReviewsBody(
+    val movieId: Int,
     val page: Int,
 )

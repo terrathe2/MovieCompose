@@ -19,7 +19,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
- * View model class that manage [GenreScreen] data
+ * View model class that manage [GenreRoute] data
  */
 @HiltViewModel
 class GenreViewModel @Inject constructor(

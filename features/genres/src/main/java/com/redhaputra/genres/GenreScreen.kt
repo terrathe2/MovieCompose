@@ -1,6 +1,5 @@
 package com.redhaputra.genres
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -54,7 +53,7 @@ import com.redhaputra.ui.MCPullToRefresh
 fun GenreRoute(
     viewModel: GenreViewModel = hiltViewModel(),
     showSnackBar: (String, String?, SnackbarDuration, (() -> Unit)?) -> Unit,
-    navigateToMovieList: (String) -> Unit,
+    navigateToMovieList: (Int, String?) -> Unit,
 ) {
     val movieGenresUIState by viewModel.movieGenresUiState.collectAsStateWithLifecycle()
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
@@ -88,17 +87,19 @@ private fun HandleErrorState(
     }
 }
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 private fun GenreScreen(
     movieGenresUIState: MovieGenresUIState,
     getGenres: () -> Unit,
-    navigateToMovieList: (String) -> Unit
+    navigateToMovieList: (Int, String?) -> Unit
 ) {
     Scaffold(
        topBar = { MCTopBar(screenTitle = stringResource(id = RD.string.movie_genre)) },
-    ) {
-        MCPullToRefresh(onRefresh = getGenres) {
+    ) { padding ->
+        MCPullToRefresh(
+            modifier = Modifier.padding(padding),
+            onRefresh = getGenres
+        ) {
             ListMovieGenres(
                 movieGenresUIState = movieGenresUIState,
                 navigateToMovieList =  navigateToMovieList
@@ -114,7 +115,7 @@ private fun GenreScreen(
 @Composable
 fun ListMovieGenres(
     movieGenresUIState: MovieGenresUIState,
-    navigateToMovieList: (String) -> Unit
+    navigateToMovieList: (Int, String?) -> Unit
 ) {
     FlowRow(
         modifier = Modifier
@@ -156,13 +157,13 @@ fun ListMovieGenres(
 @Composable
 private fun ListMovieGenreItem(
     item: ItemMovieGenresResponse,
-    navigateToMovieList: (String) -> Unit
+    navigateToMovieList: (Int, String?) -> Unit
 ) {
     Card(
         modifier = Modifier.wrapContentWidth(),
         shape = RoundedCornerShape(COMMON_RADIUS.dp),
         elevation = CARD_ELEVATION.dp,
-        onClick = { item.name?.let { navigateToMovieList(it) } }
+        onClick = { navigateToMovieList(item.id ?: 0, item.name) }
     ) {
         Row(
             modifier = Modifier
@@ -200,7 +201,7 @@ fun GreetingPreview() {
                 ""
             ),
             {},
-            {}
+            { _, _ -> }
         )
     }
 }

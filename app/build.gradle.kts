@@ -68,6 +68,7 @@ dependencies {
     implementation(project(CORE.NAVIGATION))
     implementation(project(FEATURES.GENRES))
     implementation(project(FEATURES.LIST_MOVIE))
+    implementation(project(FEATURES.MOVIE_DETAIL))
 
     implementation(platform(Dependencies.KOTLIN_BOM))
     implementation(platform(Dependencies.COMPOSE_BOM))

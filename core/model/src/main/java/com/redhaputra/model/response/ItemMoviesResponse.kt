@@ -15,12 +15,12 @@ data class ItemMoviesResponse(
     val coverImg: String?,
     @Json(name = "id")
     val id: Int?,
-    @Json(name = "original_title")
-    val title: String?,
     @Json(name = "overview")
     val overview: String?,
     @Json(name = "poster_path")
     val posterImg: String?,
+    @Json(name = "original_title")
+    val title: String?,
     @Json(name = "vote_average")
     val vote: Double?,
 )
