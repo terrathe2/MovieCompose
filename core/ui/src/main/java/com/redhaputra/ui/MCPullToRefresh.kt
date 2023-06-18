@@ -16,12 +16,13 @@ import com.redhaputra.designsystem.theme.MCTheme
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MCPullToRefresh(
+    modifier: Modifier = Modifier,
     onRefresh: () -> Unit,
     content: @Composable () -> Unit
 ) {
     val pullRefreshState = rememberPullRefreshState(refreshing = false, onRefresh = onRefresh)
 
-    Box(modifier = Modifier.pullRefresh(pullRefreshState)) {
+    Box(modifier = modifier.pullRefresh(pullRefreshState)) {
         content()
         PullRefreshIndicator(
             refreshing = false,

@@ -1,33 +1,35 @@
-package com.redhaputra.genres.navigation
+package com.redhaputra.moviedetail.navigation
 
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.material.SnackbarDuration
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.composable
-import com.redhaputra.genres.GenreRoute
+import com.redhaputra.moviedetail.MovieDetailRoute
 import com.redhaputra.navigation.MCNavigationDestination
 import com.redhaputra.ui.utils.IntUtils.NAV_ANIM_DURATION
 
 /**
- * object that define genre route & destination
+ * object that define movie detail route & destination
  */
-object GenreDestination : MCNavigationDestination {
-    override val route: String = "genre_page_route"
-    override val destination: String = "genre_page_destination"
+object MovieDetailDestination : MCNavigationDestination {
+    override val route: String = "movie_detail_page_route"
+    override val destination: String = "movie_detail_page_destination"
 }
 
 /**
- * Genre graph builder config
+ * Movie detail graph builder config
  */
 @OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.genreGraph(
+fun NavGraphBuilder.movieDetailGraph(
+    navController: NavHostController,
     showSnackBar: (String, String?, SnackbarDuration, (() -> Unit)?) -> Unit,
-    navigateToMovieList: (Int, String?) -> Unit,
+    onBackClick: () -> Unit,
 ) {
     composable(
-        route = GenreDestination.route,
+        route = MovieDetailDestination.route,
         enterTransition = {
             slideIntoContainer(
                 AnimatedContentScope.SlideDirection.Left,
@@ -53,9 +55,10 @@ fun NavGraphBuilder.genreGraph(
             )
         }
     ) {
-        GenreRoute(
+        MovieDetailRoute(
+            navController = navController,
             showSnackBar = showSnackBar,
-            navigateToMovieList = navigateToMovieList
+            onBackClick = onBackClick,
         )
     }
 }

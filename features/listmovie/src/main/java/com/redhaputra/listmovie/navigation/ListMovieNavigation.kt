@@ -6,31 +6,36 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.material.SnackbarDuration
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.composable
 import com.redhaputra.ui.utils.IntUtils.NAV_ANIM_DURATION
 import com.redhaputra.listmovie.ListMovieRoute
+import com.redhaputra.listmovie.navigation.ListMovieDestination.genreIdArg
+import com.redhaputra.listmovie.navigation.ListMovieDestination.genreNameArg
 import com.redhaputra.navigation.MCNavigationDestination
 
 /**
  * object that define list movie route & destination
  */
 object ListMovieDestination : MCNavigationDestination {
-    const val genreArg = "genre"
-    override val route: String = "list_movie_page_route/{$genreArg}"
+    const val genreIdArg = "genreId"
+    const val genreNameArg = "genreName"
+    override val route: String = "list_movie_page_route/{$genreIdArg}?name={$genreNameArg}"
     override val destination: String = "list_movie_page_destination"
 
     /**
      * Creates destination route with genre
      */
-    fun createNavigationRoute(genreArg: String): String {
-        val encodedSource = if (genreArg.isEmpty()) {
-            "-"
+    fun createNavigationRoute(genreIdArg: Int, genreNameArg: String?): String {
+        val encodedGenreIdSource = Uri.encode(genreIdArg.toString())
+        val encodedGenreNameSource = if (genreNameArg.isNullOrEmpty()) {
+            "Movie List"
         } else {
-            Uri.encode(genreArg)
+            Uri.encode(genreNameArg)
         }
-        return "list_movie_page_route/$encodedSource"
+        return "list_movie_page_route/$encodedGenreIdSource?name=$encodedGenreNameSource"
     }
 }
 
@@ -39,9 +44,10 @@ object ListMovieDestination : MCNavigationDestination {
  */
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.listMovieGraph(
+    navController: NavHostController,
     showSnackBar: (String, String?, SnackbarDuration, (() -> Unit)?) -> Unit,
     onBackClick: () -> Unit,
-    navigateToMovieDetail: (String) -> Unit
+    navigateToMovieDetail: () -> Unit
 ) {
     composable(
         route = ListMovieDestination.route,
@@ -70,11 +76,13 @@ fun NavGraphBuilder.listMovieGraph(
             )
         },
         arguments = listOf(
-            navArgument(ListMovieDestination.genreArg) { type = NavType.StringType }
+            navArgument(genreIdArg) { type = NavType.StringType },
+            navArgument(genreNameArg) { type = NavType.StringType }
         )
     ) {
         ListMovieRoute(
             showSnackBar = showSnackBar,
+            navController = navController,
             onBackClick = onBackClick,
             navigateToMovieDetail = navigateToMovieDetail,
         )

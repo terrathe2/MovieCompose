@@ -7,6 +7,6 @@ import androidx.annotation.Keep
  */
 @Keep
 data class MovieListBody(
-    val genre: String,
+    val genreId: String,
     val page: Int,
 )

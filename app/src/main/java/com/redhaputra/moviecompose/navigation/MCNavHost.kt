@@ -8,6 +8,8 @@ import com.redhaputra.genres.navigation.GenreDestination
 import com.redhaputra.genres.navigation.genreGraph
 import com.redhaputra.listmovie.navigation.ListMovieDestination
 import com.redhaputra.listmovie.navigation.listMovieGraph
+import com.redhaputra.moviedetail.navigation.MovieDetailDestination
+import com.redhaputra.moviedetail.navigation.movieDetailGraph
 import com.redhaputra.navigation.MCAppState
 
 /**
@@ -34,17 +36,23 @@ fun MCNavHost(
     ) {
         genreGraph(
             showSnackBar = appState::showSnackBar,
-            navigateToMovieList = {
+            navigateToMovieList = { id, name ->
                 appState.navigate(
                     ListMovieDestination,
-                    ListMovieDestination.createNavigationRoute(it)
+                    ListMovieDestination.createNavigationRoute(id, name)
                 )
             }
         )
         listMovieGraph(
+            navController = appState.navController,
             showSnackBar = appState::showSnackBar,
             onBackClick = appState::onBackClick,
-            navigateToMovieDetail = {}
+            navigateToMovieDetail = { appState.navigate(MovieDetailDestination, null) }
+        )
+        movieDetailGraph(
+            navController = appState.navController,
+            showSnackBar = appState::showSnackBar,
+            onBackClick = appState::onBackClick,
         )
     }
 }

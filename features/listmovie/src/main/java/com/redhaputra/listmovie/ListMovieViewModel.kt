@@ -11,7 +11,8 @@ import androidx.paging.map
 import com.redhaputra.data.repositories.CommonDispatcherRepository
 import com.redhaputra.data.repositories.DiscoverRepository
 import com.redhaputra.listmovie.component.ListMoviePagingSource
-import com.redhaputra.listmovie.navigation.ListMovieDestination
+import com.redhaputra.listmovie.navigation.ListMovieDestination.genreIdArg
+import com.redhaputra.listmovie.navigation.ListMovieDestination.genreNameArg
 import com.redhaputra.model.data.MovieData
 import com.redhaputra.model.response.ItemMoviesResponse
 import com.redhaputra.model.response.asExternalData
@@ -23,7 +24,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 /**
- * View model class that manage [ListMovieScreen] data
+ * View model class that manage [ListMovieRoute] data
  */
 @HiltViewModel
 class ListMovieViewModel @Inject constructor(
@@ -31,13 +32,14 @@ class ListMovieViewModel @Inject constructor(
     private val repository: DiscoverRepository,
     private val dispatcher: CommonDispatcherRepository
 ) : ViewModel() {
-    val genre: String = checkNotNull(savedStateHandle[ListMovieDestination.genreArg])
+    private val genreId: String = checkNotNull(savedStateHandle[genreIdArg])
+    val genreName: String = checkNotNull(savedStateHandle[genreNameArg])
 
     private val pagingConfig = PagingConfig(PAGE_SIZE, initialLoadSize = PAGE_SIZE)
 
     val movieList: Flow<PagingData<MovieData>> =
         Pager(config = pagingConfig) {
-            ListMoviePagingSource(genre = genre, repository = repository)
+            ListMoviePagingSource(genreId = genreId, repository = repository)
         }.flow
             .map { it.map(ItemMoviesResponse::asExternalData) }
             .flowOn(dispatcher.io)

@@ -26,9 +26,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.NavHostController
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.redhaputra.designsystem.component.MCDefaultTopBarContent
@@ -36,6 +40,7 @@ import com.redhaputra.designsystem.component.MCImageFromUrl
 import com.redhaputra.designsystem.theme.MCTheme
 import com.redhaputra.designsystem.R as RD
 import com.redhaputra.model.data.MovieData
+import com.redhaputra.navigation.constants.MovieDetailConstant.MOVIE_DATA_KEY
 import com.redhaputra.ui.MCEmptyUIState
 import com.redhaputra.ui.MCLoadMoreUIState
 import com.redhaputra.ui.MCPagingErrorHandler
@@ -46,6 +51,7 @@ import com.redhaputra.ui.state.rememberLazyListState
 import com.redhaputra.ui.utils.IntUtils.CARD_ELEVATION
 import com.redhaputra.ui.utils.IntUtils.COMMON_RADIUS
 import com.redhaputra.ui.utils.StringUtils.toPosterImg
+import kotlinx.coroutines.flow.flowOf
 
 private val imgWidth = 100.dp
 private val imgHeight = 130.dp
@@ -55,16 +61,19 @@ private val imgHeight = 130.dp
  */
 @Composable
 fun ListMovieRoute(
+    navController: NavHostController,
     viewModel: ListMovieViewModel = hiltViewModel(),
     showSnackBar: (String, String?, SnackbarDuration, (() -> Unit)?) -> Unit,
     onBackClick: () -> Unit,
-    navigateToMovieDetail: (String) -> Unit,
+    navigateToMovieDetail: () -> Unit,
 ) {
     val movieList = viewModel.movieList.collectAsLazyPagingItems()
+    val currentSaveState = navController.currentBackStackEntry?.savedStateHandle
 
     ListMovieScreen(
-        genre = viewModel.genre,
+        genre = viewModel.genreName,
         movieList = movieList,
+        currentSaveState = currentSaveState,
         onBackClick = onBackClick,
         navigateToMovieDetail = navigateToMovieDetail
     )
@@ -76,8 +85,9 @@ fun ListMovieRoute(
 private fun ListMovieScreen(
     genre: String,
     movieList: LazyPagingItems<MovieData>,
+    currentSaveState: SavedStateHandle?,
     onBackClick: () -> Unit,
-    navigateToMovieDetail: (String) -> Unit
+    navigateToMovieDetail: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -86,8 +96,9 @@ private fun ListMovieScreen(
                 onBackClick = onBackClick
             )
          },
-    ) {
+    ) { padding ->
         MCPullToRefresh(
+            modifier = Modifier.padding(padding),
             onRefresh = {
                 if (movieList.loadState.refresh !is LoadState.Loading) {
                     movieList.refresh()
@@ -96,6 +107,7 @@ private fun ListMovieScreen(
         ) {
             MovieList(
                 pagingData = movieList,
+                currentSaveState = currentSaveState,
                 navigateToMovieDetail = navigateToMovieDetail
             )
         }
@@ -108,7 +120,8 @@ private fun ListMovieScreen(
 @Composable
 fun MovieList(
     pagingData: LazyPagingItems<MovieData>,
-    navigateToMovieDetail: (String) -> Unit
+    currentSaveState: SavedStateHandle?,
+    navigateToMovieDetail: () -> Unit
 ) {
     val loadState = pagingData.loadState
     val itemCount = pagingData.itemCount
@@ -126,6 +139,7 @@ fun MovieList(
                 items(count = 5) {
                     MovieListItemCard(
                         isShimmer = true,
+                        currentSaveState = currentSaveState,
                         navigateToMovieDetail = navigateToMovieDetail
                     )
                 }
@@ -142,6 +156,7 @@ fun MovieList(
                         MovieListItemCard(
                             item = it,
                             isShimmer = false,
+                            currentSaveState = currentSaveState,
                             navigateToMovieDetail = navigateToMovieDetail
                         )
                     }
@@ -158,13 +173,19 @@ fun MovieList(
 private fun LazyItemScope.MovieListItemCard(
     item: MovieData? = null,
     isShimmer: Boolean,
-    navigateToMovieDetail: (String) -> Unit
+    currentSaveState: SavedStateHandle?,
+    navigateToMovieDetail: () -> Unit
 ) {
     Card(
         modifier = Modifier.fillParentMaxWidth().padding(end = 16.dp),
         shape = RoundedCornerShape(COMMON_RADIUS.dp),
         elevation = CARD_ELEVATION.dp,
-        onClick = {}
+        onClick = {
+            if (!isShimmer) {
+                currentSaveState?.set(MOVIE_DATA_KEY, item)
+                navigateToMovieDetail.invoke()
+            }
+        }
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -236,6 +257,20 @@ private fun MovieItem(
             overflow = TextOverflow.Ellipsis,
             color = MCTheme.primaryColors.neutral600,
             style = MCTheme.typography.textMediumR
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ListMoviePreview() {
+    MCTheme {
+        ListMovieScreen(
+            genre = "Action",
+            movieList = flowOf(PagingData.empty<MovieData>()).collectAsLazyPagingItems(),
+            currentSaveState = null,
+            onBackClick = {},
+            navigateToMovieDetail = {}
         )
     }
 }

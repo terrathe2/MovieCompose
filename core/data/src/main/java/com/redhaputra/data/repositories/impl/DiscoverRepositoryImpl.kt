@@ -24,7 +24,7 @@ class DiscoverRepositoryImpl @Inject constructor(
             "page" to params.page,
             "region" to "ID",
             "sort_by" to "popularity.desc",
-            "with_genres" to params.genre
+            "with_genres" to params.genreId
         )
 
         try {
